@@ -14,3 +14,8 @@ Test: when dice are rolled, a random number between 1 and 6 is returned
 Code: dice1.roll()
 Expected Output: number between 1 and 6
 
+Description: Rolls for a turn are accumulated
+Test: two rolls are made, and a player keeps a tally
+Code: player1.rollDice()
+Expected Output: current roll plus previous rolls
+
