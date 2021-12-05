@@ -6,3 +6,16 @@ function Dice() {
 };
 
 let dice1 = new Dice();
+
+function Player(name,dice) {
+  this.name = name;
+  this.dice = dice;
+  this.score = 0;
+}
+
+Player.prototype.takeRoll = function() {
+  this.dice.roll();
+  this.score += this.dice.currentRoll;
+}
+
+let player1 = new Player("Jim",dice1)
