@@ -19,12 +19,12 @@ Test: two rolls are made, and a player keeps a tally
 Code: player1.rollDice()
 Expected Output: current roll plus previous rolls
 
-Description: Turns are created
-Test: Code is able to take turns between players
-Code: game1.player1Turn
-Expected Output: turns are logged
-
 Description: Player has option to hold turn
 Test: When player wants to hold turn, their score is put onto the scoreboard and their turn is ended.
 Code: player1.hold()
 Expected Output: Score is added to scoreboard, turn ends.
+
+Description: When a 1 is rolled, player's turn ends and they lose the points from that turn.
+Test: When the dice roll the number one, it ends the players turn and sets their score to 0
+Code: (this.dice.currentRoll === 1)
+Expected Output: Turn is ended and score = 0
