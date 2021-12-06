@@ -11,18 +11,19 @@
     <h1 class="text-center">Would You Like to Play a Game of Pig Dice?</h1>
     <h2 class="text-center">Click the button below to begin</empirically-supported></h2>
     <div class="container">
-      <button type="submit" id="Begin">Begin</button>
+      <button type="submit" id="begin">Begin</button>
+      <div class="hiddenStuff">
+        <div class="form-group">
+          <label for="playerName" id = "nameLabel">Enter your name: </label>
+          <input type="text" class="form-control" id="playerName">
+        </div>
       
-      <div class="form-group">
-        <label for="inputBox"></label>
-        <input type="text" class="form-control" id="playerName">
-      </div>
-
-      <button type="submit" id="Roll">Roll Dice</button>
+        <button type="submit" id="roll">Roll Dice</button>
       
 
       <div id="result">
         <p></p>
+      </div>
       </div>
     </div>
   </body>
