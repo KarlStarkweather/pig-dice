@@ -1,27 +1,28 @@
 // Business Logic
 
-function Dice() {
-  this.currentRoll = 0;
-  this.roll = function () {
-    this.currentRoll = Math.floor((Math.random() * 5)+1);
-    console.log(this.currentRoll);
-  };
-};
+// function Dice() {
+//   this.currentRoll = 0;
+//   this.roll = function () {
+//     this.currentRoll = Math.floor((Math.random() * 6)+1);
+//   };
+// };
 
 // let dice1 = new Dice();
 // let dice2 = new Dice();
 
-function Player(name,dice) {
+function Player(name) {
   this.name = name;
-  this.dice = dice;
+  this.currentRoll = 0;
+  // this.dice = dice;
   this.score = 0;
   this.position = 0;
 }
 
 Player.prototype.rollDice = function(game1) {
-  this.dice.roll();
-  this.score += this.dice.currentRoll;
-  if (this.dice.currentRoll === 1) {
+  const roll =  Math.floor((Math.random() * 6)+1);
+  // this.dice.roll();
+  this.score += roll;
+  if (roll === 1) {
     this.score = 0;
     this.hold(game1);
   };
@@ -66,16 +67,20 @@ $(document).ready(function() {
       $("#roll").show();
       $("#playerName").hide();
       $("#nameLabel").hide();
-      let dice1 = new Dice();
-      let dice2 = new Dice();
-      let player1 = new Player($("#playerName").val(),dice1);
-      let player2 = new Player("Hal",dice2);
+      // let dice1 = new Dice();
+      // let dice2 = new Dice();
+      let player1 = new Player($("#playerName").val());
+      let player2 = new Player("Hal");
       let game1 = new Game(player1,player2);
       console.log(game1);
       $("#roll").click(function() {
         player1.rollDice(game1);
         console.log("Current Roll: " + player1.currentRoll);
         console.log("Score so far: " + player1.score);
+        $("#player1-roll").text(player1.currentRoll);
+        $("#player2-roll").text(player2.currentRoll);
+        $("#player1-score").text(player1.score);
+        $("#player2-score").text(player2.score);
       });
     })
   })
