@@ -1,35 +1,21 @@
 // Business Logic
 
-// function Dice() {
-//   this.currentRoll = 0;
-//   this.roll = function () {
-//     this.currentRoll = Math.floor((Math.random() * 6)+1);
-//   };
-// };
-
-// let dice1 = new Dice();
-// let dice2 = new Dice();
-
 function Player(name) {
   this.name = name;
   this.currentRoll = 0;
-  // this.dice = dice;
-  this.score = 0;
+  this.turnScore = 0;
   this.position = 0;
 }
 
 Player.prototype.rollDice = function(game1) {
-  const roll =  Math.floor((Math.random() * 6)+1);
-  // this.dice.roll();
-  this.score += roll;
+  const roll =  Math.floor((Math.random() * 6) + 1);
+  this.currentRoll = roll;
+  this.turnScore += roll;
   if (roll === 1) {
-    this.score = 0;
+    this.turnScore = 0;
     this.hold(game1);
   };
 }
-
-// let player1 = new Player("Jim",dice1)
-// let player2 = new Player("Hal", dice2)
 
 function Game(player1, player2) {
   this.gameName = "Pig dice";
@@ -37,22 +23,20 @@ function Game(player1, player2) {
   this.player1.position = 1;
   this.player2 = player2;
   this.player2.position = 2;
-  this.player1Tally = 0;
-  this.player2Tally = 0;
+  this.player1Total = 0;
+  this.player2Total = 0;
   this.currentPlayer = player1;
 }
 
-// let game1 = new Game(player1,player2);
-
 Player.prototype.hold = function(game1) {
   if (this.position === 1) {
-    game1.player1Tally += this.score;
+    game1.player1Total += this.turnScore;
     game1.currentPlayer = game1.player2;
   } else {
-    game1.player2Tally += this.score;
+    game1.player2Total += this.turnScore;
     game1.currentPlayer = game1.player1;
   };
-  this.score = 0;
+  this.turnScore = 0;
 }
 
 
@@ -67,20 +51,26 @@ $(document).ready(function() {
       $("#roll").show();
       $("#playerName").hide();
       $("#nameLabel").hide();
-      // let dice1 = new Dice();
-      // let dice2 = new Dice();
       let player1 = new Player($("#playerName").val());
       let player2 = new Player("Hal");
       let game1 = new Game(player1,player2);
+      $("#player1-name").text("Player One: " + player1.name);
+      $("#player2-name").text("Player Two: " + player2.name);
       console.log(game1);
       $("#roll").click(function() {
         player1.rollDice(game1);
         console.log("Current Roll: " + player1.currentRoll);
-        console.log("Score so far: " + player1.score);
+        console.log("Score this round: " + player1.turnScore);
+        console.log("Game total: " + game1.player1Total);
         $("#player1-roll").text(player1.currentRoll);
         $("#player2-roll").text(player2.currentRoll);
-        $("#player1-score").text(player1.score);
-        $("#player2-score").text(player2.score);
+        $("#player1-score").text(player1.turnScore);
+        $("#player2-score").text(player2.turnScore);
+        $("#player1-total").text(game1.player1Total);
+        $("#player2-total").text(game1.player2Total);
+        $("#hold").click(function() {
+          player1.hold();
+        });
       });
     })
   })
