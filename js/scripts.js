@@ -28,13 +28,23 @@ function Game(player1, player2) {
   this.currentPlayer = player1;
 }
 
-Player.prototype.hold = function(game1) {
+Game.prototype.playForComputer = function() {
+  this.player2.rollDice();
+  if (this.player2.currentRoll > 1) {
+    this.player2.rollDice();
+  } if (this.player2.currentRoll > 1) {
+    this.player2.hold();
+  }
+}
+
+Player.prototype.hold = function(thisGame) {
   if (this.position === 1) {
-    game1.player1Total += this.turnScore;
-    game1.currentPlayer = game1.player2;
+    thisGame.player1Total = this.turnScore;
+    thisGame.currentPlayer = thisGame.player2;
+    thisGame.playForComputer();
   } else {
-    game1.player2Total += this.turnScore;
-    game1.currentPlayer = game1.player1;
+    thisGame.player2Total += this.turnScore;
+    thisGame.currentPlayer = thisGame.player1;
   };
   this.turnScore = 0;
 }
